@@ -4,6 +4,10 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.graphics.Color
 
+/**
+ * App specific colors outside of the M3 scheme.
+ * UI specific color to be added here.
+ */
 @Immutable
 data class AppColorPalette(
     val profitGreen: Color = Color.Unspecified,
