@@ -1,4 +1,5 @@
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+import com.codingfeline.buildkonfig.compiler.FieldSpec
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
@@ -10,6 +11,7 @@ plugins {
     alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.room)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.buildkonfig)
 }
 
 kotlin {
@@ -110,3 +112,12 @@ dependencies {
     debugImplementation(compose.uiTooling)
 }
 
+buildkonfig {
+    packageName = "org.example.udemykmp"
+
+    defaultConfigs {
+        val apiKey: String = gradleLocalProperties(rootDir, providers).getProperty("apiKey")
+
+        buildConfigField(FieldSpec.Type.STRING, "API_KEY", apiKey)
+    }
+}
