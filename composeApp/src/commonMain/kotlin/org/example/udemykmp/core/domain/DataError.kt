@@ -1,6 +1,6 @@
 package org.example.udemykmp.core.domain
 
-sealed interface DataError {
+sealed interface DataError: Error {
     enum class Local: DataError {
         UNKNOWN,
         DISK_FULL,
