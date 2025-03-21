@@ -117,7 +117,6 @@ buildkonfig {
 
     defaultConfigs {
         val apiKey: String = gradleLocalProperties(rootDir, providers).getProperty("apiKey")
-
         buildConfigField(FieldSpec.Type.STRING, "API_KEY", apiKey)
     }
 }
