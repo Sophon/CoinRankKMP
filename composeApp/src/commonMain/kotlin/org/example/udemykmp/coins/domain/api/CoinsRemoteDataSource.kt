@@ -8,6 +8,6 @@ import org.example.udemykmp.core.domain.Result
 
 interface CoinsRemoteDataSource {
     suspend fun getCoinsList(): Result<CoinsListDto, DataError.Remote>
-    suspend fun getPriceHistory(): Result<CoinPriceHistoryDto, DataError.Remote>
-    suspend fun getCoinDetail(): Result<CoinDetailsResponseDto, DataError.Remote>
+    suspend fun getPriceHistory(coinId: String): Result<CoinPriceHistoryDto, DataError.Remote>
+    suspend fun getCoinDetailsOf(coinId: String): Result<CoinDetailsResponseDto, DataError.Remote>
 }

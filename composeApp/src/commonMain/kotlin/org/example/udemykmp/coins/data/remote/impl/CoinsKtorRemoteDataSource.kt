@@ -1,0 +1,29 @@
+package org.example.udemykmp.coins.data.remote.impl
+
+import io.ktor.client.HttpClient
+import io.ktor.client.request.get
+import org.example.udemykmp.coins.data.remote.BASE_URL
+import org.example.udemykmp.coins.data.remote.dto.CoinDetailsResponseDto
+import org.example.udemykmp.coins.data.remote.dto.CoinPriceHistoryDto
+import org.example.udemykmp.coins.data.remote.dto.CoinsListDto
+import org.example.udemykmp.coins.domain.api.CoinsRemoteDataSource
+import org.example.udemykmp.core.domain.DataError
+import org.example.udemykmp.core.domain.Result
+import org.example.udemykmp.core.network.safeCall
+
+class CoinsKtorRemoteDataSource(
+    private val httpClient: HttpClient
+): CoinsRemoteDataSource {
+    override suspend fun getCoinsList(): Result<CoinsListDto, DataError.Remote> {
+        return safeCall { httpClient.get("$BASE_URL/coins") }
+    }
+
+    override suspend fun getPriceHistory(coinId: String): Result<CoinPriceHistoryDto, DataError.Remote> {
+        return safeCall { httpClient.get("$BASE_URL/coin/$coinId/history") }
+    }
+
+    override suspend fun getCoinDetailsOf(coinId: String): Result<CoinDetailsResponseDto, DataError.Remote> {
+        return safeCall { httpClient.get("$BASE_URL/coin/$coinId") }
+    }
+}
+
