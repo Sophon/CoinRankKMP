@@ -8,6 +8,8 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import org.example.udemykmp.coins.domain.usecases.GetCoinsListUseCase
 import org.example.udemykmp.core.domain.Result
+import org.example.udemykmp.core.util.formatFiat
+import org.example.udemykmp.core.util.formatPercentage
 
 class CoinsListViewModel(
     private val getCoinsListUseCase: GetCoinsListUseCase,
@@ -34,8 +36,8 @@ class CoinsListViewModel(
                                 name = coinModel.coin.name,
                                 iconUrl = coinModel.coin.iconUrl,
                                 symbol = coinModel.coin.symbol,
-                                formattedPrice = coinModel.price.toString(), //TODO: format
-                                formattedChange = coinModel.change.toString(), //TODO: format
+                                formattedPrice = formatFiat(coinModel.price),
+                                formattedChange = formatPercentage(coinModel.change),
                                 isPositive = (coinModel.change > 0),
                             )
                         }
