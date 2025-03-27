@@ -49,7 +49,7 @@ actual fun formatPercentage(amount: Double): String {
         minimumFractionDigits = 2.toULong()
         maximumFractionDigits = 2.toULong()
     }
-    val prefix = if (amount >= 0) "+" else "-"
+    val prefix = if (amount >= 0) "+" else ""
 
     return prefix + formatter.stringFromNumber(NSNumber(amount)) + " %"
 }

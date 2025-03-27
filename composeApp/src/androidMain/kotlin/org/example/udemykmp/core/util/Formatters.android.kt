@@ -25,6 +25,6 @@ actual fun formatCoinUnit(amount: Double, symbol: String): String {
 }
 
 actual fun formatPercentage(amount: Double): String {
-    val prefix = if (amount >= 0) "+" else "-"
-    return "$prefix " + DecimalFormat("0.00").format(amount) + " %"
+    val prefix = if (amount >= 0) "+" else ""
+    return prefix + DecimalFormat("0.00").format(amount) + " %"
 }
