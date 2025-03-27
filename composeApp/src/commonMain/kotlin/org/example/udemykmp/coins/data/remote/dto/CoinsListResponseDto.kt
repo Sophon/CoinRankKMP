@@ -3,7 +3,7 @@ package org.example.udemykmp.coins.data.remote.dto
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class CoinsResponseDto(
+data class CoinsListResponseDto(
     val data: CoinsListDto,
 )
 
