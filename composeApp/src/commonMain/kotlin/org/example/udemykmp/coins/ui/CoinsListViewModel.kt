@@ -7,7 +7,6 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import org.example.udemykmp.coins.domain.usecases.GetCoinsListUseCase
-import org.example.udemykmp.core.domain.DataError
 import org.example.udemykmp.core.domain.Result
 
 class CoinsListViewModel(
