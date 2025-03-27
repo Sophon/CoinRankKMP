@@ -26,15 +26,15 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import coil3.compose.AsyncImage
 import org.example.udemykmp.theme.localAppColorPalette
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun CoinsListScreen(
     onCoinClicked: (String) -> Unit,
 ) {
-    val vm = viewModel(CoinsListViewModel::class) //TODO: replace with DI
+    val vm = koinViewModel<CoinsListViewModel>()
     val state by vm.state.collectAsStateWithLifecycle()
 
     CoinsListScreenContent(

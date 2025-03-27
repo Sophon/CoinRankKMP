@@ -1,6 +1,7 @@
 package org.example.udemykmp
 
 import androidx.compose.runtime.Composable
+import org.example.udemykmp.coins.ui.CoinsListScreen
 import org.example.udemykmp.theme.AppTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -8,6 +9,6 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @Preview
 fun App() {
     AppTheme {
-        //content
+        CoinsListScreen {  }
     }
 }
