@@ -34,6 +34,7 @@ class CoinsListViewModel(
                                 id = coinModel.coin.id,
                                 name = coinModel.coin.name,
                                 iconUrl = coinModel.coin.iconUrl,
+                                symbol = coinModel.coin.symbol,
                                 formattedPrice = coinModel.price.toString(), //TODO: format
                                 formattedChange = coinModel.change.toString(), //TODO: format
                                 isPositive = (coinModel.change > 0),

@@ -12,6 +12,7 @@ data class CoinsListViewState(
 data class UiCoinsListItem(
     val id: String,
     val name: String,
+    val symbol: String,
     val iconUrl: String,
     val formattedPrice: String,
     val formattedChange: String,
