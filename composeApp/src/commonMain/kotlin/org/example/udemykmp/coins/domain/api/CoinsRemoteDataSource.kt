@@ -2,7 +2,6 @@ package org.example.udemykmp.coins.domain.api
 
 import org.example.udemykmp.coins.data.remote.dto.CoinDetailsResponseDto
 import org.example.udemykmp.coins.data.remote.dto.CoinPriceHistoryDto
-import org.example.udemykmp.coins.data.remote.dto.CoinsListDto
 import org.example.udemykmp.coins.data.remote.dto.CoinsListResponseDto
 import org.example.udemykmp.core.domain.DataError
 import org.example.udemykmp.core.domain.Result
