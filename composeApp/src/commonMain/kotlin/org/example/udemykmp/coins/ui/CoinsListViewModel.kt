@@ -3,6 +3,7 @@ package org.example.udemykmp.coins.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
@@ -10,6 +11,9 @@ import org.example.udemykmp.coins.domain.usecases.GetCoinsListUseCase
 import org.example.udemykmp.core.domain.Result
 import org.example.udemykmp.core.util.formatFiat
 import org.example.udemykmp.core.util.formatPercentage
+import org.example.udemykmp.core.util.toUiText
+import udemykmp.composeapp.generated.resources.Res
+import udemykmp.composeapp.generated.resources.error_unknown
 
 class CoinsListViewModel(
     private val getCoinsListUseCase: GetCoinsListUseCase,
@@ -21,7 +25,7 @@ class CoinsListViewModel(
         }
         .stateIn(
             scope = viewModelScope,
-            started = kotlinx.coroutines.flow.SharingStarted.WhileSubscribed(5000),
+            started = SharingStarted.WhileSubscribed(5000),
             initialValue = CoinsListViewState()
         )
 
@@ -48,7 +52,7 @@ class CoinsListViewModel(
                 _state.update {
                     it.copy(
                         coins = emptyList(),
-                        error = null, //TODO: format the error
+                        error = response.error.toUiText(),
                     )
                 }
             }
