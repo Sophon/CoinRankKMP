@@ -1,4 +1,4 @@
-package org.example.udemykmp.coins.ui
+package org.example.udemykmp.features.coins.ui
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -31,7 +31,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
-import org.example.udemykmp.coins.ui.composables.PriceChart
+import org.example.udemykmp.features.coins.ui.composables.PriceChart
 import org.example.udemykmp.theme.localAppColorPalette
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel

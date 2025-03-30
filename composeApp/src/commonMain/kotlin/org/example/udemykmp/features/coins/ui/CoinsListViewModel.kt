@@ -1,4 +1,4 @@
-package org.example.udemykmp.coins.ui
+package org.example.udemykmp.features.coins.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,8 +8,8 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import org.example.udemykmp.coins.domain.usecases.GetCoinPriceHistoryUseCase
-import org.example.udemykmp.coins.domain.usecases.GetCoinsListUseCase
+import org.example.udemykmp.features.coins.domain.usecases.GetCoinPriceHistoryUseCase
+import org.example.udemykmp.features.coins.domain.usecases.GetCoinsListUseCase
 import org.example.udemykmp.core.domain.Result
 import org.example.udemykmp.core.util.formatFiat
 import org.example.udemykmp.core.util.formatPercentage

@@ -1,4 +1,4 @@
-package org.example.udemykmp.coins.domain.model
+package org.example.udemykmp.features.coins.domain.model
 
 data class CoinPriceHistory(
     val price: Double,

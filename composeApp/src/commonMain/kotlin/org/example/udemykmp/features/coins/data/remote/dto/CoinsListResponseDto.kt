@@ -1,4 +1,4 @@
-package org.example.udemykmp.coins.data.remote.dto
+package org.example.udemykmp.features.coins.data.remote.dto
 
 import kotlinx.serialization.Serializable
 

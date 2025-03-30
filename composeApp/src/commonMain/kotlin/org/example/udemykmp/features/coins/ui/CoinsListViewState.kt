@@ -1,4 +1,4 @@
-package org.example.udemykmp.coins.ui
+package org.example.udemykmp.features.coins.ui
 
 import androidx.compose.runtime.Stable
 import org.jetbrains.compose.resources.StringResource

@@ -1,4 +1,4 @@
-package org.example.udemykmp.coins.ui.composables
+package org.example.udemykmp.features.coins.ui.composables
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.fillMaxSize
