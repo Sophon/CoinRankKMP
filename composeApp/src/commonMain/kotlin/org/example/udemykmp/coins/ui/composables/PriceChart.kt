@@ -4,25 +4,27 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.dp
 import org.example.udemykmp.theme.AppTheme
+import org.example.udemykmp.theme.localAppColorPalette
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun PriceChart(
     modifier: Modifier = Modifier,
     pricePoints: List<Double>,
-    profitColor: Color,
-    lossColor: Color,
+    isProfitable: Boolean,
 ) {
     if (pricePoints.isEmpty()) return
     val maxPrice = pricePoints.maxOrNull() ?: return
     val minPrice = pricePoints.minOrNull() ?: return
     val minMaxDiff = maxPrice - minPrice
-    val lineColor = if (pricePoints.last() > pricePoints.first()) profitColor else lossColor
+    val color = if (isProfitable)
+        localAppColorPalette.current.profitGreen
+    else
+        localAppColorPalette.current.lossRed
 
     Canvas(modifier = modifier.fillMaxSize()) {
         val path = Path()
@@ -40,7 +42,7 @@ fun PriceChart(
 
         drawPath(
             path = path,
-            color = lineColor,
+            color = color,
             style = Stroke(width = 3.dp.toPx())
         )
     }
@@ -54,8 +56,7 @@ fun PriceChartPreview() {
     AppTheme {
         PriceChart(
             pricePoints = pricePoints,
-            profitColor = Color.Green,
-            lossColor = Color.Red
+            isProfitable = true,
         )
     }
 }

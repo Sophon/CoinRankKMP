@@ -23,5 +23,8 @@ data class UiCoinsListItem(
 data class CoinPriceHistoryState(
     val coinName: String = "",
     val isLoading: Boolean = true,
-    val points: List<Double> = emptyList(),
-)
+    val pricePoints: List<Double> = emptyList(),
+) {
+    val isProfitable: Boolean
+        get() = pricePoints.last() > pricePoints.first()
+}

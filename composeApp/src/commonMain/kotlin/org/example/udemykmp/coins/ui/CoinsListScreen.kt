@@ -199,9 +199,8 @@ private fun CoinPriceHistoryDialog(
                 }
             } else {
                 PriceChart(
-                    pricePoints = historyState.points,
-                    profitColor = localAppColorPalette.current.profitGreen,
-                    lossColor = localAppColorPalette.current.lossRed,
+                    pricePoints = historyState.pricePoints,
+                    isProfitable = historyState.isProfitable,
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(200.dp)

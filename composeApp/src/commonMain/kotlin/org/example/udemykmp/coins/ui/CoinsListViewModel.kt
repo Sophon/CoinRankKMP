@@ -63,7 +63,7 @@ class CoinsListViewModel(
     fun showCoinPriceHistory(coinId: String) {
         _state.update {
             it.copy(
-                coinPriceHistoryState = CoinPriceHistoryState(points = emptyList(), isLoading = true)
+                coinPriceHistoryState = CoinPriceHistoryState(pricePoints = emptyList(), isLoading = true)
             )
         }
 
@@ -75,7 +75,7 @@ class CoinsListViewModel(
                             coinPriceHistoryState = CoinPriceHistoryState(
                                 isLoading = false,
                                 coinName = state.coins.find { it.id == coinId }?.name.orEmpty(),
-                                points = response.data.sortedBy { it.timestamp }.map { it.price },
+                                pricePoints = response.data.sortedBy { it.timestamp }.map { it.price },
                             )
                         )
                     }
@@ -85,7 +85,7 @@ class CoinsListViewModel(
                         it.copy(
                             coinPriceHistoryState = CoinPriceHistoryState(
                                 isLoading = false,
-                                points = emptyList(),
+                                pricePoints = emptyList(),
                                 coinName = "",
                             )
                         )
