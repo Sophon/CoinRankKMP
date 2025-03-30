@@ -7,6 +7,7 @@ import org.jetbrains.compose.resources.StringResource
 data class CoinsListViewState(
     val error: StringResource? = null,
     val coins: List<UiCoinsListItem> = emptyList(),
+    val coinPriceHistoryState: CoinPriceHistoryState? = null,
 )
 
 data class UiCoinsListItem(
@@ -18,3 +19,12 @@ data class UiCoinsListItem(
     val formattedChange: String,
     val isPositive: Boolean,
 )
+
+data class CoinPriceHistoryState(
+    val coinName: String = "",
+    val isLoading: Boolean = true,
+    val pricePoints: List<Double> = emptyList(),
+) {
+    val isProfitable: Boolean
+        get() = pricePoints.last() > pricePoints.first()
+}

@@ -4,7 +4,7 @@ import io.ktor.client.HttpClient
 import org.example.udemykmp.coins.data.remote.impl.CoinsKtorRemoteDataSource
 import org.example.udemykmp.coins.domain.api.CoinsRemoteDataSource
 import org.example.udemykmp.coins.domain.usecases.GetCoinDetailsUseCase
-import org.example.udemykmp.coins.domain.usecases.GetCoinPriceHistory
+import org.example.udemykmp.coins.domain.usecases.GetCoinPriceHistoryUseCase
 import org.example.udemykmp.coins.domain.usecases.GetCoinsListUseCase
 import org.example.udemykmp.coins.ui.CoinsListViewModel
 import org.example.udemykmp.core.network.HttpClientFactory
@@ -37,10 +37,10 @@ val sharedModule = module {
     //endregion
 
     //region Coins
-    viewModel { CoinsListViewModel(get()) }
+    viewModel { CoinsListViewModel(get(), get()) }
     singleOf(::CoinsKtorRemoteDataSource).bind<CoinsRemoteDataSource>()
     singleOf(::GetCoinsListUseCase)
     singleOf(::GetCoinDetailsUseCase)
-    singleOf(::GetCoinPriceHistory)
+    singleOf(::GetCoinPriceHistoryUseCase)
     //endregion
 }

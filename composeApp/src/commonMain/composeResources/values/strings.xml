@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <resources>
 
+    <!--Core UI-->
+    <string name="btn_close">Close</string>
+
+    <!--Coins-->
+    <string name="title_dlg_coins_history_title">24h Price chart for</string>
+
     <!--Errors-->
     <string name="error_disk_full">Oops, it seems like your disk is full.</string>
     <string name="error_unknown">Oops, something went wrong.</string>
