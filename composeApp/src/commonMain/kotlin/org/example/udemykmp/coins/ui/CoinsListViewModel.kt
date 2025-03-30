@@ -60,7 +60,7 @@ class CoinsListViewModel(
         }
     }
 
-    private fun onCoinLongPress(coinId: String) {
+    fun showCoinPriceHistory(coinId: String) {
         _state.update {
             it.copy(
                 coinPriceHistoryState = CoinPriceHistoryState(points = emptyList(), isLoading = true)

@@ -46,6 +46,7 @@ fun PriceChart(
     }
 }
 
+//region PREVIEW
 @Preview
 @Composable
 fun PriceChartPreview() {
@@ -58,3 +59,4 @@ fun PriceChartPreview() {
         )
     }
 }
+//endregion
