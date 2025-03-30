@@ -11,10 +11,10 @@ interface PortfolioDao {
     suspend fun insert(portfolioCoinEntity: PortfolioCoinEntity)
 
     @Query("SELECT * FROM portfolioCoinEntity")
-    suspend fun getAllCoins(): Flow<List<PortfolioCoinEntity>>
+    fun getAllCoins(): Flow<List<PortfolioCoinEntity>>
 
     @Query("SELECT * FROM portfolioCoinEntity WHERE coinId = :coinId ORDER BY timestamp DESC")
-    suspend fun getCoin(coinId: String): Flow<PortfolioCoinEntity>
+    fun getCoin(coinId: String): Flow<PortfolioCoinEntity?>
 
     @Query("DELETE FROM portfolioCoinEntity WHERE coinId = :coinId")
     suspend fun deleteCoin(coinId: String)
