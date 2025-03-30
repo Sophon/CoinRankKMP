@@ -3,7 +3,7 @@ package org.example.udemykmp.features.portfolio.data.local
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity
+@Entity(tableName = "portfolioCoinEntity")
 data class PortfolioCoinEntity(
     @PrimaryKey val coinId: String,
     val name: String,
