@@ -94,4 +94,8 @@ class CoinsListViewModel(
             }
         }
     }
+
+    fun dismissPriceHistory() {
+        _state.update { it.copy(coinPriceHistoryState = null,) }
+    }
 }
