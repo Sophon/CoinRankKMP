@@ -2,8 +2,8 @@ package org.example.udemykmp.di
 
 import androidx.room.RoomDatabase
 import io.ktor.client.HttpClient
-import org.example.udemykmp.core.database.PortfolioDatabase
-import org.example.udemykmp.core.database.getPortfolioDatabase
+import org.example.udemykmp.features.portfolio.data.local.PortfolioDatabase
+import org.example.udemykmp.features.portfolio.data.local.getPortfolioDatabase
 import org.example.udemykmp.features.coins.data.remote.impl.CoinsKtorRemoteDataSource
 import org.example.udemykmp.features.coins.domain.api.CoinsRemoteDataSource
 import org.example.udemykmp.features.coins.domain.usecases.GetCoinDetailsUseCase

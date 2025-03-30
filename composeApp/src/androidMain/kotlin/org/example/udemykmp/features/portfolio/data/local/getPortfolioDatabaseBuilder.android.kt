@@ -1,4 +1,4 @@
-package org.example.udemykmp.core.database
+package org.example.udemykmp.features.portfolio.data.local
 
 import android.content.Context
 import androidx.room.Room
