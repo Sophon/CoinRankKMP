@@ -31,7 +31,7 @@ fun PriceChart(
 
         pricePoints.forEachIndexed { index, pricePoint ->
             val x = index * (size.width/pricePoints.size)
-            val y = size.height * ((pricePoint-minPrice)/minMaxDiff).toFloat()
+            val y = size.height * (1 - (pricePoint-minPrice)/minMaxDiff).toFloat()
 
             if (index == 0) {
                 path.moveTo(x, y)
