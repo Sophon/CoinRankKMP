@@ -1,12 +1,15 @@
 package org.example.udemykmp.di
 
+import androidx.room.RoomDatabase
 import io.ktor.client.HttpClient
-import org.example.udemykmp.coins.data.remote.impl.CoinsKtorRemoteDataSource
-import org.example.udemykmp.coins.domain.api.CoinsRemoteDataSource
-import org.example.udemykmp.coins.domain.usecases.GetCoinDetailsUseCase
-import org.example.udemykmp.coins.domain.usecases.GetCoinPriceHistoryUseCase
-import org.example.udemykmp.coins.domain.usecases.GetCoinsListUseCase
-import org.example.udemykmp.coins.ui.CoinsListViewModel
+import org.example.udemykmp.features.portfolio.data.local.PortfolioDatabase
+import org.example.udemykmp.features.portfolio.data.local.getPortfolioDatabase
+import org.example.udemykmp.features.coins.data.remote.impl.CoinsKtorRemoteDataSource
+import org.example.udemykmp.features.coins.domain.api.CoinsRemoteDataSource
+import org.example.udemykmp.features.coins.domain.usecases.GetCoinDetailsUseCase
+import org.example.udemykmp.features.coins.domain.usecases.GetCoinPriceHistoryUseCase
+import org.example.udemykmp.features.coins.domain.usecases.GetCoinsListUseCase
+import org.example.udemykmp.features.coins.ui.CoinsListViewModel
 import org.example.udemykmp.core.network.HttpClientFactory
 import org.koin.core.context.startKoin
 import org.koin.core.module.Module
@@ -42,5 +45,11 @@ val sharedModule = module {
     singleOf(::GetCoinsListUseCase)
     singleOf(::GetCoinDetailsUseCase)
     singleOf(::GetCoinPriceHistoryUseCase)
+    //endregion
+
+    //region portfolio
+    single {
+        getPortfolioDatabase(get<RoomDatabase.Builder<PortfolioDatabase>>())
+    }
     //endregion
 }
