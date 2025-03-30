@@ -33,7 +33,11 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
 import org.example.udemykmp.coins.ui.composables.PriceChart
 import org.example.udemykmp.theme.localAppColorPalette
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
+import udemykmp.composeapp.generated.resources.Res
+import udemykmp.composeapp.generated.resources.btn_close
+import udemykmp.composeapp.generated.resources.title_dlg_coins_history_title
 
 @Composable
 fun CoinsListScreen(
@@ -182,6 +186,9 @@ private fun CoinPriceHistoryDialog(
 ) {
     AlertDialog(
         onDismissRequest = onDismiss,
+        title = {
+            Text(text = stringResource(Res.string.title_dlg_coins_history_title) + " ${historyState.coinName}")
+        },
         text = {
             if (historyState.isLoading) {
                 Box(
@@ -205,7 +212,7 @@ private fun CoinPriceHistoryDialog(
         confirmButton = {},
         dismissButton = {
             Button(onClick = onDismiss) {
-                Text(text = "Close") //TODO: STRINGS
+                Text(text = stringResource(Res.string.btn_close))
             }
         },
         modifier = modifier
