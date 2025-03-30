@@ -7,16 +7,17 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import org.example.udemykmp.coins.domain.usecases.GetCoinPriceHistoryUseCase
 import org.example.udemykmp.coins.domain.usecases.GetCoinsListUseCase
 import org.example.udemykmp.core.domain.Result
 import org.example.udemykmp.core.util.formatFiat
 import org.example.udemykmp.core.util.formatPercentage
 import org.example.udemykmp.core.util.toUiText
-import udemykmp.composeapp.generated.resources.Res
-import udemykmp.composeapp.generated.resources.error_unknown
 
 class CoinsListViewModel(
     private val getCoinsListUseCase: GetCoinsListUseCase,
+    private val getCoinPriceHistoryUseCase: GetCoinPriceHistoryUseCase,
 ): ViewModel() {
     private val _state = MutableStateFlow(CoinsListViewState())
     val state = _state
@@ -54,6 +55,41 @@ class CoinsListViewModel(
                         coins = emptyList(),
                         error = response.error.toUiText(),
                     )
+                }
+            }
+        }
+    }
+
+    private fun onCoinLongPress(coinId: String) {
+        _state.update {
+            it.copy(
+                coinPriceHistoryState = CoinPriceHistoryState(points = emptyList(), isLoading = true)
+            )
+        }
+
+        viewModelScope.launch {
+            when (val response = getCoinPriceHistoryUseCase.execute(coinId)) {
+                is Result.Success -> {
+                    _state.update { state ->
+                        state.copy(
+                            coinPriceHistoryState = CoinPriceHistoryState(
+                                isLoading = false,
+                                coinName = state.coins.find { it.id == coinId }?.name.orEmpty(),
+                                points = response.data.sortedBy { it.timestamp }.map { it.price },
+                            )
+                        )
+                    }
+                }
+                is Result.Error -> {
+                    _state.update {
+                        it.copy(
+                            coinPriceHistoryState = CoinPriceHistoryState(
+                                isLoading = false,
+                                points = emptyList(),
+                                coinName = "",
+                            )
+                        )
+                    }
                 }
             }
         }

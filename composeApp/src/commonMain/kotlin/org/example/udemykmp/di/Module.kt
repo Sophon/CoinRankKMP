@@ -37,7 +37,7 @@ val sharedModule = module {
     //endregion
 
     //region Coins
-    viewModel { CoinsListViewModel(get()) }
+    viewModel { CoinsListViewModel(get(), get()) }
     singleOf(::CoinsKtorRemoteDataSource).bind<CoinsRemoteDataSource>()
     singleOf(::GetCoinsListUseCase)
     singleOf(::GetCoinDetailsUseCase)
