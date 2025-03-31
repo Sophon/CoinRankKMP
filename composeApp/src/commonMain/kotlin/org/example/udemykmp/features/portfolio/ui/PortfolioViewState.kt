@@ -1,5 +1,9 @@
 package org.example.udemykmp.features.portfolio.ui
 
+import org.example.udemykmp.core.util.formatCoinUnit
+import org.example.udemykmp.core.util.formatFiat
+import org.example.udemykmp.core.util.formatPercentage
+import org.example.udemykmp.features.portfolio.domain.PortfolioCoinModel
 import org.jetbrains.compose.resources.StringResource
 
 data class PortfolioViewState(
@@ -21,3 +25,15 @@ data class UiPortfolioCoin(
     val performancePercent: String,
     val isPositivePerformance: Boolean,
 )
+
+fun PortfolioCoinModel.toUiModel(): UiPortfolioCoin {
+    return UiPortfolioCoin(
+        id = coin.id,
+        name = coin.name,
+        iconUrl = coin.iconUrl,
+        amountInUnit = formatCoinUnit(ownedAmountInUnit, coin.symbol),
+        amountInFiat = formatFiat(ownedAmountInFiat),
+        performancePercent = formatPercentage(performancePercent),
+        isPositivePerformance = performancePercent >= 0,
+    )
+}
