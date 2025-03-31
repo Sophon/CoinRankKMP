@@ -13,7 +13,7 @@ interface PortfolioRepository {
     suspend fun removePortfolioCoin(coinId: String): EmptyResult<DataError.Local>
 
     fun getTotalPortfolioValue(): Flow<Result<Double, DataError.Remote>>
-    fun getTotalBalance(): Flow<Result<Double, DataError.Remote>>
+    fun getTotalBalance(): Flow<Result<Double, DataError.Remote>> //portfolio + cash
     fun cashBalance(): Flow<Double>
     suspend fun updateCashBalance(newBalance: Double): EmptyResult<DataError.Local>
 }
