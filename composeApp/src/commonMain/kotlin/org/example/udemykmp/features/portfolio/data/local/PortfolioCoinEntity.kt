@@ -9,7 +9,7 @@ data class PortfolioCoinEntity(
     val name: String,
     val symbol: String,
     val iconUrl: String,
-    val avgPurchasePrise: Double,
+    val averagePurchasePrice: Double,
     val amountOwned: Double,
     val timestamp: Long,
 )
