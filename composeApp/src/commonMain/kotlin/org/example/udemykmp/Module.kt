@@ -11,6 +11,8 @@ import org.example.udemykmp.features.coins.domain.usecases.GetCoinPriceHistoryUs
 import org.example.udemykmp.features.coins.domain.usecases.GetCoinsListUseCase
 import org.example.udemykmp.features.coins.ui.CoinsListViewModel
 import org.example.udemykmp.core.network.HttpClientFactory
+import org.example.udemykmp.features.portfolio.data.PortfolioRepositoryImpl
+import org.example.udemykmp.features.portfolio.domain.PortfolioRepository
 import org.koin.core.context.startKoin
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.singleOf
@@ -48,8 +50,7 @@ val sharedModule = module {
     //endregion
 
     //region portfolio
-    single {
-        getPortfolioDatabase(get<RoomDatabase.Builder<PortfolioDatabase>>())
-    }
+    single { getPortfolioDatabase(get<RoomDatabase.Builder<PortfolioDatabase>>()) }
+    singleOf(::PortfolioRepositoryImpl).bind<PortfolioRepository>()
     //endregion
 }
