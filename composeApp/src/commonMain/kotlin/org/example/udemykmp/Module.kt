@@ -1,4 +1,4 @@
-package org.example.udemykmp.di
+package org.example.udemykmp
 
 import androidx.room.RoomDatabase
 import io.ktor.client.HttpClient
@@ -11,8 +11,13 @@ import org.example.udemykmp.features.coins.domain.usecases.GetCoinPriceHistoryUs
 import org.example.udemykmp.features.coins.domain.usecases.GetCoinsListUseCase
 import org.example.udemykmp.features.coins.ui.CoinsListViewModel
 import org.example.udemykmp.core.network.HttpClientFactory
+import org.example.udemykmp.features.portfolio.data.PortfolioRepositoryImpl
+import org.example.udemykmp.features.portfolio.data.local.PortfolioDao
+import org.example.udemykmp.features.portfolio.domain.PortfolioRepository
+import org.example.udemykmp.features.portfolio.ui.PortfolioViewModel
 import org.koin.core.context.startKoin
 import org.koin.core.module.Module
+import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.KoinAppDeclaration
@@ -48,8 +53,10 @@ val sharedModule = module {
     //endregion
 
     //region portfolio
-    single {
-        getPortfolioDatabase(get<RoomDatabase.Builder<PortfolioDatabase>>())
-    }
+    single { getPortfolioDatabase(get<RoomDatabase.Builder<PortfolioDatabase>>()) }
+    single { get<PortfolioDatabase>().portfolioDao() }
+    single { get<PortfolioDatabase>().userBalanceDao() }
+    singleOf(::PortfolioRepositoryImpl).bind<PortfolioRepository>()
+    viewModel { PortfolioViewModel(get()) }
     //endregion
 }

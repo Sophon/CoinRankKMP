@@ -1,4 +1,4 @@
-package org.example.udemykmp.di
+package org.example.udemykmp
 
 import androidx.room.RoomDatabase
 import io.ktor.client.engine.HttpClientEngine
