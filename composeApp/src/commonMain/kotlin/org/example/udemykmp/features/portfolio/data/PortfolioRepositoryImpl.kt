@@ -123,14 +123,12 @@ class PortfolioRepositoryImpl(
         ) { cashAmount, portfolioResult ->
             portfolioResult
                 .onError { Result.Error(it) }
-                .onSuccess { portfolioValue ->
-                    Result.Success(cashAmount + portfolioValue)
-                }
+                .onSuccess { portfolioValue -> Result.Success(cashAmount + portfolioValue) }
         }
     }
 
     override fun cashBalance(): Flow<Double> {
-        return flow { userBalanceDao.getCashBalance() ?: 0.0 }
+        return flow { emit(userBalanceDao.getCashBalance() ?: 0.0) }
     }
 
     override suspend fun updateCashBalance(newBalance: Double): EmptyResult<DataError.Local> {
