@@ -15,6 +15,8 @@ import org.example.udemykmp.features.portfolio.data.BalanceRepository
 import org.example.udemykmp.features.portfolio.data.BalanceRepositoryImpl
 import org.example.udemykmp.features.portfolio.data.PortfolioRepository
 import org.example.udemykmp.features.portfolio.data.PortfolioRepositoryImpl
+import org.example.udemykmp.features.portfolio.domain.usecase.GetPortfolioStatusUseCase
+import org.example.udemykmp.features.portfolio.domain.usecase.InitializeBalanceUseCase
 import org.example.udemykmp.features.portfolio.ui.PortfolioViewModel
 import org.koin.core.context.startKoin
 import org.koin.core.module.Module
