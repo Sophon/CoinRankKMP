@@ -2,7 +2,7 @@ package org.example.udemykmp.features.coins.data.remote.impl
 
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
-import org.example.udemykmp.features.coins.data.remote.BASE_URL
+import org.example.udemykmp.core.data.remote.BASE_URL
 import org.example.udemykmp.features.coins.data.remote.dto.CoinDetailsResponseDto
 import org.example.udemykmp.features.coins.data.remote.dto.CoinPriceHistoryResponseDto
 import org.example.udemykmp.features.coins.data.remote.dto.CoinsListResponseDto
