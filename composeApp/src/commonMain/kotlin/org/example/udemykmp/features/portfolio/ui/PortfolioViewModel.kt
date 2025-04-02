@@ -13,7 +13,7 @@ import org.example.udemykmp.core.domain.Result
 import org.example.udemykmp.core.util.formatFiat
 import org.example.udemykmp.core.util.toUiText
 import org.example.udemykmp.features.portfolio.domain.PortfolioCoinModel
-import org.example.udemykmp.features.portfolio.domain.PortfolioRepository
+import org.example.udemykmp.features.portfolio.data.PortfolioRepository
 
 class PortfolioViewModel(
     private val repo: PortfolioRepository,

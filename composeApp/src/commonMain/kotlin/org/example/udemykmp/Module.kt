@@ -11,13 +11,13 @@ import org.example.udemykmp.features.coins.domain.usecases.GetCoinPriceHistoryUs
 import org.example.udemykmp.features.coins.domain.usecases.GetCoinsListUseCase
 import org.example.udemykmp.features.coins.ui.CoinsListViewModel
 import org.example.udemykmp.core.network.HttpClientFactory
+import org.example.udemykmp.features.portfolio.data.BalanceRepository
+import org.example.udemykmp.features.portfolio.data.BalanceRepositoryImpl
+import org.example.udemykmp.features.portfolio.data.PortfolioRepository
 import org.example.udemykmp.features.portfolio.data.PortfolioRepositoryImpl
-import org.example.udemykmp.features.portfolio.data.local.PortfolioDao
-import org.example.udemykmp.features.portfolio.domain.PortfolioRepository
 import org.example.udemykmp.features.portfolio.ui.PortfolioViewModel
 import org.koin.core.context.startKoin
 import org.koin.core.module.Module
-import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.KoinAppDeclaration
@@ -52,11 +52,14 @@ val sharedModule = module {
     singleOf(::GetCoinPriceHistoryUseCase)
     //endregion
 
-    //region portfolio
+    //region Portfolio
     single { getPortfolioDatabase(get<RoomDatabase.Builder<PortfolioDatabase>>()) }
     single { get<PortfolioDatabase>().portfolioDao() }
     single { get<PortfolioDatabase>().userBalanceDao() }
     singleOf(::PortfolioRepositoryImpl).bind<PortfolioRepository>()
-    viewModel { PortfolioViewModel(get()) }
+    singleOf(::BalanceRepositoryImpl).bind<BalanceRepository>()
+    viewModel { PortfolioViewModel(get(), get()) }
+    singleOf(::GetPortfolioStatusUseCase)
+    singleOf(::InitializeBalanceUseCase)
     //endregion
 }
