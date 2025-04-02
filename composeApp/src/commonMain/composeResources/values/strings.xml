@@ -5,7 +5,15 @@
     <string name="btn_close">Close</string>
 
     <!--Coins-->
-    <string name="title_dlg_coins_history_title">24h Price chart for</string>
+    <string name="dlg_coins_history_title">24h Price chart for</string>
+
+    <!--Portfolio-->
+    <string name="title_portfolio_total_value">Total Value</string>
+    <string name="txt_portfolio_cash_balance">Cash balance: </string>
+    <string name="btn_portfolio_buy">Buy coin</string>
+    <string name="title_portfolio_owned">💰 Owned Coins:</string>
+    <string name="txt_portfolio_no_coins">No coins in yuor portfolio yet.</string>
+    <string name="btn_portfolio_discover">Discover coins</string>
 
     <!--Errors-->
     <string name="error_disk_full">Oops, it seems like your disk is full.</string>
