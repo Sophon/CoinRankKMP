@@ -1,7 +1,7 @@
 package org.example.udemykmp.features.coins.domain.usecases
 
 import org.example.udemykmp.features.coins.data.mappers.toCoinModel
-import org.example.udemykmp.features.coins.domain.api.CoinsRemoteDataSource
+import org.example.udemykmp.features.coins.integration.CoinsRemoteDataSource
 import org.example.udemykmp.features.coins.domain.model.CoinModel
 import org.example.udemykmp.core.domain.DataError
 import org.example.udemykmp.core.domain.Result

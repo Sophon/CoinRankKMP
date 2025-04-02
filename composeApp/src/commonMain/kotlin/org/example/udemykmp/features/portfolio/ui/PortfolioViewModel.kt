@@ -12,11 +12,13 @@ import org.example.udemykmp.core.domain.DataError
 import org.example.udemykmp.core.domain.Result
 import org.example.udemykmp.core.util.formatFiat
 import org.example.udemykmp.core.util.toUiText
-import org.example.udemykmp.features.portfolio.domain.PortfolioCoinModel
-import org.example.udemykmp.features.portfolio.domain.PortfolioRepository
+import org.example.udemykmp.features.portfolio.domain.model.PortfolioStatus
+import org.example.udemykmp.features.portfolio.domain.usecase.GetPortfolioStatusUseCase
+import org.example.udemykmp.features.portfolio.domain.usecase.InitializeBalanceUseCase
 
 class PortfolioViewModel(
-    private val repo: PortfolioRepository,
+    private val getPortfolioStatusUseCase: GetPortfolioStatusUseCase,
+    private val initializeBalanceUseCase: InitializeBalanceUseCase,
 ): ViewModel() {
     private val _state = MutableStateFlow(PortfolioViewState(isLoading = true))
     val state: StateFlow<PortfolioViewState> = initializeState()
@@ -24,18 +26,14 @@ class PortfolioViewModel(
     private fun initializeState(): StateFlow<PortfolioViewState> {
         return combine(
             _state,
-            repo.getPortfolioCoins(),
-            repo.getTotalBalance(),
-            repo.cashBalance()
-        ) { currentState, coinsResult, totalBalanceResult, cashBalance ->
+            getPortfolioStatusUseCase.execute(),
+        ) { currentState, portfolioStatusResult ->
             handleCombination(
                 currentState = currentState,
-                coinsResult = coinsResult,
-                totalBalanceResult = totalBalanceResult,
-                cashBalance = cashBalance
+                portfolioStatusResult = portfolioStatusResult,
             )
         }.onStart {
-            repo.initializeBalance()
+            initializeBalanceUseCase.execute()
         }.stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(),
@@ -45,29 +43,22 @@ class PortfolioViewModel(
 
     private fun handleCombination(
         currentState: PortfolioViewState,
-        coinsResult: Result<List<PortfolioCoinModel>, DataError.Remote>,
-        totalBalanceResult: Result<Double, DataError>,
-        cashBalance: Double,
+        portfolioStatusResult: Result<PortfolioStatus, DataError.Remote>,
     ): PortfolioViewState {
-        when (coinsResult) {
+        return when (portfolioStatusResult) {
             is Result.Success -> {
-                val portfolioValue = when (totalBalanceResult) {
-                    is Result.Success -> formatFiat(totalBalanceResult.data)
-                    is Result.Error -> formatFiat(0.0)
-                }
-
-                return currentState.copy(
-                    portfolioValue = portfolioValue,
-                    cashBalance = formatFiat(cashBalance),
-                    isBuyButtonShown = coinsResult.data.isNotEmpty(),
-                    coins = coinsResult.data.map { it.toUiModel() },
+                currentState.copy(
+                    portfolioValue = formatFiat(portfolioStatusResult.data.totalPortfolioValue),
+                    cashBalance = formatFiat(portfolioStatusResult.data.cashBalance),
+                    isBuyButtonShown = portfolioStatusResult.data.coins.isNotEmpty(),
+                    coins = portfolioStatusResult.data.coins.map { it.toUiModel() },
                     isLoading = false
                 )
             }
             is Result.Error -> {
-                return currentState.copy(
+                currentState.copy(
                     isLoading = false,
-                    error = coinsResult.error.toUiText(),
+                    error = portfolioStatusResult.error.toUiText(),
                 )
             }
         }

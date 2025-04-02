@@ -1,4 +1,4 @@
-package org.example.udemykmp.features.portfolio.domain
+package org.example.udemykmp.features.portfolio.domain.model
 
 import org.example.udemykmp.core.domain.coin.Coin
 

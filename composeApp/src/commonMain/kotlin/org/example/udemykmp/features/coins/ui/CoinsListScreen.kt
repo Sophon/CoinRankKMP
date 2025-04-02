@@ -37,7 +37,7 @@ import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 import udemykmp.composeapp.generated.resources.Res
 import udemykmp.composeapp.generated.resources.btn_close
-import udemykmp.composeapp.generated.resources.title_dlg_coins_history_title
+import udemykmp.composeapp.generated.resources.dlg_coins_history_title
 
 @Composable
 fun CoinsListScreen(
@@ -187,7 +187,7 @@ private fun CoinPriceHistoryDialog(
     AlertDialog(
         onDismissRequest = onDismiss,
         title = {
-            Text(text = stringResource(Res.string.title_dlg_coins_history_title) + " ${historyState.coinName}")
+            Text(text = stringResource(Res.string.dlg_coins_history_title) + " ${historyState.coinName}")
         },
         text = {
             if (historyState.isLoading) {

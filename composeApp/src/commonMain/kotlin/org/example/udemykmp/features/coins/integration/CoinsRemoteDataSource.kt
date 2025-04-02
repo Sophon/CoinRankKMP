@@ -1,4 +1,4 @@
-package org.example.udemykmp.features.coins.domain.api
+package org.example.udemykmp.features.coins.integration
 
 import org.example.udemykmp.features.coins.data.remote.dto.CoinDetailsResponseDto
 import org.example.udemykmp.features.coins.data.remote.dto.CoinPriceHistoryResponseDto
