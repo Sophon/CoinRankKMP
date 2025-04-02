@@ -5,7 +5,7 @@ import io.ktor.client.HttpClient
 import org.example.udemykmp.features.portfolio.data.local.PortfolioDatabase
 import org.example.udemykmp.features.portfolio.data.local.getPortfolioDatabase
 import org.example.udemykmp.features.coins.data.remote.impl.CoinsKtorRemoteDataSource
-import org.example.udemykmp.features.coins.domain.api.CoinsRemoteDataSource
+import org.example.udemykmp.features.coins.integration.CoinsRemoteDataSource
 import org.example.udemykmp.features.coins.domain.usecases.GetCoinDetailsUseCase
 import org.example.udemykmp.features.coins.domain.usecases.GetCoinPriceHistoryUseCase
 import org.example.udemykmp.features.coins.domain.usecases.GetCoinsListUseCase
