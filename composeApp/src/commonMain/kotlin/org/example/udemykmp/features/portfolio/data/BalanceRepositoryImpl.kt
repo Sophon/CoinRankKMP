@@ -8,12 +8,7 @@ import org.example.udemykmp.core.domain.EmptyResult
 import org.example.udemykmp.core.domain.Result
 import org.example.udemykmp.features.portfolio.data.local.UserBalanceDao
 import org.example.udemykmp.features.portfolio.data.local.UserBalanceEntity
-
-interface BalanceRepository {
-    suspend fun initializeBalance()
-    fun cashBalance(): Flow<Double>
-    suspend fun updateCashBalance(newBalance: Double): EmptyResult<DataError.Local>
-}
+import org.example.udemykmp.features.portfolio.integration.BalanceRepository
 
 internal class BalanceRepositoryImpl(
     private val userBalanceDao: UserBalanceDao,

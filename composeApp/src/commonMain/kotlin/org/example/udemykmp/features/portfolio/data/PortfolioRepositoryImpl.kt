@@ -11,19 +11,10 @@ import org.example.udemykmp.core.domain.EmptyResult
 import org.example.udemykmp.core.domain.Result
 import org.example.udemykmp.core.domain.onError
 import org.example.udemykmp.core.domain.onSuccess
-import org.example.udemykmp.features.coins.integration.CoinsRemoteDataSource
+import org.example.udemykmp.features.coins.data.remote.CoinsRemoteDataSource
 import org.example.udemykmp.features.portfolio.data.local.PortfolioDao
-import org.example.udemykmp.features.portfolio.domain.model.PortfolioCoinModel
-
-interface PortfolioRepository {
-
-    fun getPortfolioCoins(): Flow<Result<List<PortfolioCoinModel>, DataError.Remote>>
-    suspend fun getPortfolioCoin(coinId: String): Result<PortfolioCoinModel, DataError.Remote>
-    suspend fun savePortfolioCoin(coin: PortfolioCoinModel): EmptyResult<DataError.Local>
-    suspend fun removePortfolioCoin(coinId: String): EmptyResult<DataError.Local>
-    fun getTotalPortfolioCoinValue(): Flow<Result<Double, DataError.Remote>>
-//    fun getTotalBalance(): Flow<Result<Double, DataError.Remote>> //TODO: should be usecase
-}
+import org.example.udemykmp.features.portfolio.integration.model.PortfolioCoinModel
+import org.example.udemykmp.features.portfolio.integration.PortfolioRepository
 
 class PortfolioRepositoryImpl(
     private val portfolioDao: PortfolioDao,
@@ -107,16 +98,4 @@ class PortfolioRepositoryImpl(
             }
         }.catch { Result.Error(DataError.Remote.UNKNOWN) }
     }
-
-    //TODO: refactor - this should be a usecase
-//    override fun getTotalBalance(): Flow<Result<Double, DataError.Remote>> {
-//        return combine(
-//            cashBalance(),
-//            getTotalPortfolioValue()
-//        ) { cashAmount, portfolioResult ->
-//            portfolioResult
-//                .onError { Result.Error(it) }
-//                .onSuccess { portfolioValue -> Result.Success(cashAmount + portfolioValue) }
-//        }
-//    }
 }
