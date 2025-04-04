@@ -10,5 +10,13 @@ This is a Kotlin Multiplatform project targeting Android, iOS.
 * `/iosApp` contains iOS applications. Even if you’re sharing your UI with Compose Multiplatform, 
   you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
 
+**TODO:**
+* create a `feature` module
+  * we can then use `internal` for everything outside of `feature/integration`
+  * CICD test to enforce only `feature/integration` is imported
+* `Mermaid.js` diagrams
+  * package relationships
+  * domain models
+
 
 Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
