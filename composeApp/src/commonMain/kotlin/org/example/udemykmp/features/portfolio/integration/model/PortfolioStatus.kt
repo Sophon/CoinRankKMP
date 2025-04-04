@@ -1,4 +1,4 @@
-package org.example.udemykmp.features.portfolio.domain.model
+package org.example.udemykmp.features.portfolio.integration.model
 
 data class PortfolioStatus(
     val coins: List<PortfolioCoinModel>,

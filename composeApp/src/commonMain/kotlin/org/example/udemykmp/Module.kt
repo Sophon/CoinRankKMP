@@ -4,13 +4,13 @@ import androidx.room.RoomDatabase
 import io.ktor.client.HttpClient
 import org.example.udemykmp.features.portfolio.data.local.PortfolioDatabase
 import org.example.udemykmp.features.portfolio.data.local.getPortfolioDatabase
-import org.example.udemykmp.features.coins.data.remote.impl.CoinsKtorRemoteDataSource
-import org.example.udemykmp.features.coins.integration.CoinsRemoteDataSource
+import org.example.udemykmp.features.coins.data.remote.impl.CoinsRemoteDataSourceImpl
 import org.example.udemykmp.features.coins.domain.usecases.GetCoinDetailsUseCase
 import org.example.udemykmp.features.coins.domain.usecases.GetCoinPriceHistoryUseCase
 import org.example.udemykmp.features.coins.domain.usecases.GetCoinsListUseCase
 import org.example.udemykmp.features.coins.ui.CoinsListViewModel
 import org.example.udemykmp.core.network.HttpClientFactory
+import org.example.udemykmp.features.coins.data.remote.impl.CoinsRemoteDataSource
 import org.example.udemykmp.features.portfolio.data.BalanceRepositoryImpl
 import org.example.udemykmp.features.portfolio.data.PortfolioRepositoryImpl
 import org.example.udemykmp.features.portfolio.domain.usecase.GetPortfolioStatusUseCase
@@ -48,7 +48,7 @@ val sharedModule = module {
 
     //region Coins
     viewModel { CoinsListViewModel(get(), get()) }
-    singleOf(::CoinsKtorRemoteDataSource).bind<CoinsRemoteDataSource>()
+    singleOf(::CoinsRemoteDataSourceImpl).bind<CoinsRemoteDataSource>()
     singleOf(::GetCoinsListUseCase)
     singleOf(::GetCoinDetailsUseCase)
     singleOf(::GetCoinPriceHistoryUseCase)

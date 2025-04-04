@@ -3,7 +3,7 @@ package org.example.udemykmp.features.portfolio.data
 import kotlinx.datetime.Clock
 import org.example.udemykmp.core.domain.coin.Coin
 import org.example.udemykmp.features.portfolio.data.local.PortfolioCoinEntity
-import org.example.udemykmp.features.portfolio.domain.model.PortfolioCoinModel
+import org.example.udemykmp.features.portfolio.integration.model.PortfolioCoinModel
 
 fun PortfolioCoinEntity.toDomainModel(currentPrice: Double): PortfolioCoinModel {
     return PortfolioCoinModel(

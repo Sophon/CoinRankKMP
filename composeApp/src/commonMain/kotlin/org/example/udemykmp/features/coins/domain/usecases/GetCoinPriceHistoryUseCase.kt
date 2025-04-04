@@ -1,11 +1,11 @@
 package org.example.udemykmp.features.coins.domain.usecases
 
 import org.example.udemykmp.features.coins.data.mappers.toPriceModel
-import org.example.udemykmp.features.coins.integration.CoinsRemoteDataSource
-import org.example.udemykmp.features.coins.domain.model.CoinPriceHistory
+import org.example.udemykmp.features.coins.integration.model.CoinPriceHistory
 import org.example.udemykmp.core.domain.DataError
 import org.example.udemykmp.core.domain.Result
 import org.example.udemykmp.core.domain.map
+import org.example.udemykmp.features.coins.data.remote.impl.CoinsRemoteDataSource
 
 class GetCoinPriceHistoryUseCase(
     private val dataSource: CoinsRemoteDataSource,

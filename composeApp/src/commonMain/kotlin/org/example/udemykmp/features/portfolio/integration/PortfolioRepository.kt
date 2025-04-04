@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.Flow
 import org.example.udemykmp.core.domain.DataError
 import org.example.udemykmp.core.domain.EmptyResult
 import org.example.udemykmp.core.domain.Result
-import org.example.udemykmp.features.portfolio.domain.model.PortfolioCoinModel
+import org.example.udemykmp.features.portfolio.integration.model.PortfolioCoinModel
 
 interface PortfolioRepository {
     fun getPortfolioCoins(): Flow<Result<List<PortfolioCoinModel>, DataError.Remote>>
