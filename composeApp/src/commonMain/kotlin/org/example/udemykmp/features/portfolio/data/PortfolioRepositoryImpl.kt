@@ -44,7 +44,7 @@ class PortfolioRepositoryImpl(
         }
     }
 
-    override suspend fun getPortfolioCoin(coinId: String): Result<PortfolioCoinModel, DataError.Remote> {
+    override suspend fun getPortfolioCoin(coinId: String): Result<PortfolioCoinModel?, DataError.Remote> {
         val portfolioCoinEntity = portfolioDao.getCoin(coinId)
         if (portfolioCoinEntity == null) {
             Result.Success(null)
