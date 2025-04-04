@@ -11,7 +11,7 @@ import org.example.udemykmp.core.domain.EmptyResult
 import org.example.udemykmp.core.domain.Result
 import org.example.udemykmp.core.domain.onError
 import org.example.udemykmp.core.domain.onSuccess
-import org.example.udemykmp.features.coins.data.remote.impl.CoinsRemoteDataSource
+import org.example.udemykmp.features.coins.data.remote.CoinsRemoteDataSource
 import org.example.udemykmp.features.portfolio.data.local.PortfolioDao
 import org.example.udemykmp.features.portfolio.integration.model.PortfolioCoinModel
 import org.example.udemykmp.features.portfolio.integration.PortfolioRepository

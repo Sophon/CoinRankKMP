@@ -5,7 +5,7 @@ import org.example.udemykmp.features.coins.integration.model.CoinPriceHistory
 import org.example.udemykmp.core.domain.DataError
 import org.example.udemykmp.core.domain.Result
 import org.example.udemykmp.core.domain.map
-import org.example.udemykmp.features.coins.data.remote.impl.CoinsRemoteDataSource
+import org.example.udemykmp.features.coins.data.remote.CoinsRemoteDataSource
 
 class GetCoinPriceHistoryUseCase(
     private val dataSource: CoinsRemoteDataSource,
