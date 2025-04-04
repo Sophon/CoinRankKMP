@@ -11,12 +11,12 @@ import org.example.udemykmp.features.coins.domain.usecases.GetCoinPriceHistoryUs
 import org.example.udemykmp.features.coins.domain.usecases.GetCoinsListUseCase
 import org.example.udemykmp.features.coins.ui.CoinsListViewModel
 import org.example.udemykmp.core.network.HttpClientFactory
-import org.example.udemykmp.features.portfolio.data.BalanceRepository
 import org.example.udemykmp.features.portfolio.data.BalanceRepositoryImpl
-import org.example.udemykmp.features.portfolio.data.PortfolioRepository
 import org.example.udemykmp.features.portfolio.data.PortfolioRepositoryImpl
 import org.example.udemykmp.features.portfolio.domain.usecase.GetPortfolioStatusUseCase
 import org.example.udemykmp.features.portfolio.domain.usecase.InitializeBalanceUseCase
+import org.example.udemykmp.features.portfolio.integration.BalanceRepository
+import org.example.udemykmp.features.portfolio.integration.PortfolioRepository
 import org.example.udemykmp.features.portfolio.ui.PortfolioViewModel
 import org.koin.core.context.startKoin
 import org.koin.core.module.Module
