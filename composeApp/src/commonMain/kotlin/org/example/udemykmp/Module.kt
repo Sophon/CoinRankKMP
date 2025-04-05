@@ -16,14 +16,17 @@ import org.example.udemykmp.features.coins.integration.CoinsRepository
 import org.example.udemykmp.features.coins.integration.usecase.GetCoinDetailsUseCase
 import org.example.udemykmp.features.portfolio.data.BalanceRepositoryImpl
 import org.example.udemykmp.features.portfolio.data.PortfolioRepositoryImpl
+import org.example.udemykmp.features.portfolio.domain.usecase.GetPortfolioCoinAmountUseCaseImpl
 import org.example.udemykmp.features.portfolio.domain.usecase.GetPortfolioStatusUseCase
 import org.example.udemykmp.features.portfolio.domain.usecase.InitializeBalanceUseCase
 import org.example.udemykmp.features.portfolio.integration.BalanceRepository
 import org.example.udemykmp.features.portfolio.integration.PortfolioRepository
+import org.example.udemykmp.features.portfolio.integration.usecase.GetPortfolioCoinAmountUseCase
 import org.example.udemykmp.features.portfolio.ui.PortfolioViewModel
 import org.example.udemykmp.features.trade.domain.usecase.BuyCoinUseCase
 import org.example.udemykmp.features.trade.domain.usecase.GetUserBalanceUseCase
 import org.example.udemykmp.features.trade.domain.usecase.SellCoinUseCase
+import org.example.udemykmp.features.trade.ui.TradeViewModel
 import org.koin.core.context.startKoin
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.singleOf
@@ -70,11 +73,13 @@ val sharedModule = module {
     viewModel { PortfolioViewModel(get(), get()) }
     singleOf(::GetPortfolioStatusUseCase)
     singleOf(::InitializeBalanceUseCase)
+    singleOf(::GetPortfolioCoinAmountUseCaseImpl).bind<GetPortfolioCoinAmountUseCase>()
     //endregion
 
     //region Trade
     singleOf(::BuyCoinUseCase)
     singleOf(::SellCoinUseCase)
     singleOf(::GetUserBalanceUseCase)
+    viewModel { TradeViewModel(get(), get(), get(), get(), get()) }
     //endregion
 }

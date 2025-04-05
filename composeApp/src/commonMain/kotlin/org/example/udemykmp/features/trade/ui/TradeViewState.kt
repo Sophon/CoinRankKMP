@@ -6,8 +6,11 @@ import org.jetbrains.compose.resources.StringResource
 
 data class TradeViewState(
     val balance: String = "0.0",
+    val portfolioValue: String = "0.0",
     val tradingAmount: String = "",
     val coin: UiTradeCoinItem? = null,
+
+    val tradeType: TradeType = TradeType.BUY,
 
     val isLoading: Boolean = true,
     val error: StringResource? = null,
@@ -20,6 +23,11 @@ data class UiTradeCoinItem(
     val iconUrl: String,
     val price: Double,
 )
+
+enum class TradeType {
+    BUY,
+    SELL,
+}
 
 fun CoinModel.toUiModel(): UiTradeCoinItem {
     return UiTradeCoinItem(
