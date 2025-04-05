@@ -12,18 +12,16 @@ import org.example.udemykmp.features.portfolio.integration.PortfolioRepository
 import org.example.udemykmp.features.portfolio.integration.model.PortfolioCoinModel
 
 //TODO: unit test
-class BuyCoinUseCase(
+class SellCoinUseCase(
     private val coinsRepository: CoinsRepository,
     private val portfolioRepository: PortfolioRepository,
     private val userBalanceRepository: BalanceRepository,
 ) {
     suspend fun execute(
         coinId: String,
-        amountToBuyInFiat: Double,
+        amountToSellInFiat: Double
     ): EmptyResult<DataError> {
-        val balance = userBalanceRepository.cashBalance().first().also { userBalance ->
-            if (userBalance < amountToBuyInFiat) return Result.Error(DataError.Local.INSUFFICIENT_FUNDS)
-        }
+        val balance = userBalanceRepository.cashBalance().first()
 
         val ownedCoin = portfolioRepository.getPortfolioCoin(coinId).let { result ->
             when (result) {
@@ -39,27 +37,36 @@ class BuyCoinUseCase(
             }
         }
 
-        val newCoinAmountInUnit = (ownedCoin?.ownedAmountInUnit ?: 0.0).plus(amountToBuyInFiat / coin.price)
+        var dustAmountInFiat = 0.0
+        var newCoinAmountInUnit = (ownedCoin?.ownedAmountInUnit ?: 0.0)
+            .minus(amountToSellInFiat / coin.price)
+            .also { if (it < 0) return Result.Error(DataError.Local.INSUFFICIENT_FUNDS) }
+
+        if (newCoinAmountInUnit*coin.price < SELL_ALL_THRESHOLD) {
+            newCoinAmountInUnit = 0.0
+            dustAmountInFiat = newCoinAmountInUnit*coin.price
+        }
+
         val newCoinAmountInFiat = newCoinAmountInUnit*coin.price
         val averagePurchasePrice = newCoinAmountInFiat / newCoinAmountInUnit
-        val newBalance = balance - amountToBuyInFiat
+        val newBalance = balance + amountToSellInFiat + dustAmountInFiat
 
         val coinModel = ownedCoin?.copy(
             ownedAmountInUnit = newCoinAmountInUnit,
             ownedAmountInFiat = newCoinAmountInFiat,
             averagePurchasePrice = averagePurchasePrice,
         ) ?: PortfolioCoinModel(
-                coin = Coin(
-                    id = coinId,
-                    name = coin.coin.name,
-                    symbol = coin.coin.symbol,
-                    iconUrl = coin.coin.iconUrl,
-                ),
-                performancePercent = ((coin.price - averagePurchasePrice) / averagePurchasePrice) * 100,
-                averagePurchasePrice = averagePurchasePrice,
-                ownedAmountInUnit = newCoinAmountInUnit,
-                ownedAmountInFiat = newCoinAmountInFiat,
-            )
+            coin = Coin(
+                id = coinId,
+                name = coin.coin.name,
+                symbol = coin.coin.symbol,
+                iconUrl = coin.coin.iconUrl,
+            ),
+            performancePercent = ((coin.price - averagePurchasePrice) / averagePurchasePrice) * 100,
+            averagePurchasePrice = averagePurchasePrice,
+            ownedAmountInUnit = newCoinAmountInUnit,
+            ownedAmountInFiat = newCoinAmountInFiat,
+        )
 
         portfolioRepository.savePortfolioCoin(coinModel).onError { return Result.Error(it) }
         userBalanceRepository.updateCashBalance(newBalance).onError { return Result.Error(it) }
@@ -67,3 +74,9 @@ class BuyCoinUseCase(
         return Result.Success(Unit)
     }
 }
+
+/**
+ * If the leftover value is worth less than 1 FIAT unit, it's considered dust.
+ * We don't want to keep dust, so just sell everything.
+ */
+private const val SELL_ALL_THRESHOLD = 1
