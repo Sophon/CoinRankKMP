@@ -17,7 +17,6 @@ class BuyCoinUseCase(
     private val portfolioRepository: PortfolioRepository,
     private val userBalanceRepository: BalanceRepository,
 ) {
-
     suspend fun execute(
         coinId: String,
         amountToBuyInFiat: Double,
@@ -40,8 +39,8 @@ class BuyCoinUseCase(
             }
         }
 
-        val newCoinAmountInUnit = ownedCoin?.ownedAmountInUnit?.plus(amountToBuyInFiat / coin.price) ?: (amountToBuyInFiat / coin.price)
-        val newCoinAmountInFiat = ownedCoin?.ownedAmountInFiat?.plus(amountToBuyInFiat) ?: amountToBuyInFiat
+        val newCoinAmountInUnit = (ownedCoin?.ownedAmountInUnit ?: 0.0).plus(amountToBuyInFiat / coin.price)
+        val newCoinAmountInFiat = newCoinAmountInUnit*coin.price
         val averagePurchasePrice = newCoinAmountInFiat / newCoinAmountInUnit
         val newBalance = balance - amountToBuyInFiat
 
