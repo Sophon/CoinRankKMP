@@ -9,6 +9,7 @@ data class TradeViewState(
     val portfolioValue: String = "0.0",
     val tradingAmount: String = "",
     val coin: UiTradeCoinItem? = null,
+    val currentCoinPrice: String = "0.0",
 
     val tradeType: TradeType = TradeType.BUY,
 

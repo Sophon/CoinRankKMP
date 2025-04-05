@@ -33,7 +33,7 @@ class TradeViewModel(
     private val _state = MutableStateFlow(TradeViewState())
     val state = initializeState()
 
-    fun onAmountChanged(amount: String) {
+    fun onAmountChange(amount: String) {
         _typedAmount.update { amount }
     }
 
@@ -95,8 +95,9 @@ class TradeViewModel(
                 _state.update {
                     it.copy(
                         coin = coinModel.toUiModel(),
-                        balance = "Available: ${formatFiat(balance)}", //TODO: string
-                        portfolioValue = "Available: ${formatFiat(portfolioCoinAmount)}", //TODO: string
+                        balance = formatFiat(balance), //TODO: string
+                        portfolioValue = formatFiat(portfolioCoinAmount*coinModel.price), //TODO: string
+                        currentCoinPrice = formatFiat(coinModel.price),
                         isLoading = false,
                     )
                 }
