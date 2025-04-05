@@ -30,6 +30,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
+import org.example.udemykmp.features.trade.ui.components.CenteredAmountTextField
 import org.example.udemykmp.theme.localAppColorPalette
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
@@ -38,9 +39,7 @@ import udemykmp.composeapp.generated.resources.Res
 import udemykmp.composeapp.generated.resources.btn_trade_buy
 import udemykmp.composeapp.generated.resources.btn_trade_sell
 import udemykmp.composeapp.generated.resources.label_trade_buy
-import udemykmp.composeapp.generated.resources.label_trade_coin_value
 import udemykmp.composeapp.generated.resources.label_trade_sell
-import udemykmp.composeapp.generated.resources.txt_trade_available_balance
 
 @Composable
 fun TradeScreen(
@@ -67,6 +66,7 @@ fun TradeScreen(
             Spacer(Modifier.height(24.dp))
             Amount(
                 tradeType = state.tradeType,
+                amount = state.tradingAmount,
                 onAmountChange = vm::onAmountChange,
                 availableBalance = when (state.tradeType) {
                     TradeType.BUY -> state.balance
@@ -76,7 +76,7 @@ fun TradeScreen(
             )
         }
 
-        Btn(
+        TradeButton(
             tradeType = state.tradeType,
             onButtonClick = when (state.tradeType) {
                 TradeType.BUY -> vm::onBuyClick
@@ -122,7 +122,7 @@ private fun CoinInfo(
         )
 
         Text(
-            text = stringResource(Res.string.label_trade_coin_value, currentCoinPrice),
+            text = "($currentCoinPrice)",
             style = MaterialTheme.typography.labelSmall,
             color = MaterialTheme.colorScheme.onBackground,
             modifier = Modifier.padding(start = 2.dp, end = 4.dp)
@@ -133,6 +133,7 @@ private fun CoinInfo(
 @Composable
 private fun Amount(
     tradeType: TradeType,
+    amount: String,
     onAmountChange: (String) -> Unit,
     availableBalance: String,
     error: StringResource?,
@@ -152,10 +153,13 @@ private fun Amount(
             modifier = Modifier.padding(4.dp)
         )
 
-        //TODO: textfield
+        CenteredAmountTextField(
+            text = amount,
+            onTextChange = onAmountChange,
+        )
 
         Text(
-            text = stringResource(Res.string.txt_trade_available_balance, availableBalance),
+            text = "Available: $availableBalance",
             style = MaterialTheme.typography.labelLarge,
             color = MaterialTheme.colorScheme.onBackground,
             modifier = Modifier.padding(4.dp)
@@ -173,7 +177,7 @@ private fun Amount(
 }
 
 @Composable
-private fun BoxScope.Btn(
+private fun BoxScope.TradeButton(
     tradeType: TradeType,
     onButtonClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -196,11 +200,11 @@ private fun BoxScope.Btn(
         when (tradeType) {
             TradeType.BUY -> {
                 text = Res.string.btn_trade_buy
-                color = localAppColorPalette.current.profitGreen
+                color = MaterialTheme.colorScheme.onPrimary
             }
             TradeType.SELL -> {
                 text = Res.string.btn_trade_sell
-                color = localAppColorPalette.current.lossRed
+                color = MaterialTheme.colorScheme.onBackground
             }
         }
 
