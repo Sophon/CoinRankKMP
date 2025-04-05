@@ -15,7 +15,9 @@ data class TradeViewState(
 
     val isLoading: Boolean = true,
     val error: StringResource? = null,
-)
+) {
+    val isTradeButtonEnabled = (coin != null) && (tradingAmount.isNotEmpty())
+}
 
 data class UiTradeCoinItem(
     val id: String,

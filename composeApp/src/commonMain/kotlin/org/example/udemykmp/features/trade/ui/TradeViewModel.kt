@@ -28,7 +28,7 @@ class TradeViewModel(
     private val getPortfolioCoinAmountUseCase: GetPortfolioCoinAmountUseCase,
 ): ViewModel() {
 
-    private val mockCoinId = "1" //TODO: refactor once we implement nav args
+    private val mockCoinId = "Qwsogvtv82FCd" //TODO: refactor once we implement nav args
     private val _typedAmount = MutableStateFlow("")
     private val _state = MutableStateFlow(TradeViewState())
     val state = initializeState()
