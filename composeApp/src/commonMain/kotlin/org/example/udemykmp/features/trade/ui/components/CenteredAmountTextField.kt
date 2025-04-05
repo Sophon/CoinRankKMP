@@ -29,6 +29,7 @@ fun CenteredAmountTextField(
 ) {
     val focusRequester = remember { FocusRequester() }
     LaunchedEffect(Unit) { focusRequester.requestFocus() }
+    val currencyVisualTransformation = rememberCurrencyVisualTransformation()
 
     BasicTextField(
         value = text,
@@ -56,6 +57,7 @@ fun CenteredAmountTextField(
             }
         },
         cursorBrush = SolidColor(MaterialTheme.colorScheme.onBackground),
+        visualTransformation = currencyVisualTransformation,
         modifier = modifier
             .focusRequester(focusRequester)
             .padding(16.dp)
