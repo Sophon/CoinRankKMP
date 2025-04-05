@@ -38,15 +38,15 @@ class SellCoinUseCase(
         }
 
         var dustAmountInFiat = 0.0
-        val newCoinAmountInUnit = (ownedCoin?.ownedAmountInUnit ?: 0.0)
+        var newCoinAmountInUnit = (ownedCoin?.ownedAmountInUnit ?: 0.0)
             .minus(amountToSellInFiat / coin.price)
             .also { if (it < 0) return Result.Error(DataError.Local.INSUFFICIENT_FUNDS) }
-            .let { leftCoinAmountInUnit ->
-                if (leftCoinAmountInUnit*coin.price < SELL_ALL_THRESHOLD) {
-                    dustAmountInFiat = leftCoinAmountInUnit*coin.price
-                    0.0
-                } else leftCoinAmountInUnit
-            }
+
+        if (newCoinAmountInUnit*coin.price < SELL_ALL_THRESHOLD) {
+            newCoinAmountInUnit = 0.0
+            dustAmountInFiat = newCoinAmountInUnit*coin.price
+        }
+
         val newCoinAmountInFiat = newCoinAmountInUnit*coin.price
         val averagePurchasePrice = newCoinAmountInFiat / newCoinAmountInUnit
         val newBalance = balance + amountToSellInFiat + dustAmountInFiat
