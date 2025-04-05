@@ -15,6 +15,14 @@
     <string name="txt_portfolio_no_coins">No coins in your portfolio yet.</string>
     <string name="btn_portfolio_discover">Discover coins</string>
 
+    <!--Trade-->
+    <string name="label_trade_coin_value">(%s)</string>
+    <string name="label_trade_buy">Buy Amount</string>
+    <string name="label_trade_sell">Sell Amount</string>
+    <string name="txt_trade_available_balance">Available: (%s)</string>
+    <string name="btn_trade_buy">Buy Now</string>
+    <string name="btn_trade_sell">Sell Now</string>
+
     <!--Errors-->
     <string name="error_disk_full">Oops, it seems like your disk is full.</string>
     <string name="error_unknown">Oops, something went wrong.</string>
