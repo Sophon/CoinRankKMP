@@ -81,7 +81,8 @@ fun TradeScreen(
             onButtonClick = when (state.tradeType) {
                 TradeType.BUY -> vm::onBuyClick
                 TradeType.SELL -> vm::onSellClick
-            }
+            },
+            isEnabled = state.isTradeButtonEnabled,
         )
     }
 }
@@ -180,6 +181,7 @@ private fun Amount(
 private fun BoxScope.TradeButton(
     tradeType: TradeType,
     onButtonClick: () -> Unit,
+    isEnabled: Boolean,
     modifier: Modifier = Modifier,
 ) {
     Button(
@@ -191,6 +193,7 @@ private fun BoxScope.TradeButton(
             }
         ),
         contentPadding = PaddingValues(horizontal = 64.dp),
+        enabled = isEnabled,
         modifier = modifier
             .align(Alignment.BottomCenter)
             .padding(bottom = 32.dp)
