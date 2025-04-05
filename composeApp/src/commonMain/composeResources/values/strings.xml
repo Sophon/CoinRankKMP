@@ -12,7 +12,7 @@
     <string name="txt_portfolio_cash_balance">Cash balance: </string>
     <string name="btn_portfolio_buy">Buy coin</string>
     <string name="title_portfolio_owned">💰 Owned Coins:</string>
-    <string name="txt_portfolio_no_coins">No coins in yuor portfolio yet.</string>
+    <string name="txt_portfolio_no_coins">No coins in your portfolio yet.</string>
     <string name="btn_portfolio_discover">Discover coins</string>
 
     <!--Errors-->
