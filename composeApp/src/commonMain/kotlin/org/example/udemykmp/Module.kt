@@ -21,6 +21,7 @@ import org.example.udemykmp.features.portfolio.integration.BalanceRepository
 import org.example.udemykmp.features.portfolio.integration.PortfolioRepository
 import org.example.udemykmp.features.portfolio.ui.PortfolioViewModel
 import org.example.udemykmp.features.trade.domain.usecase.BuyCoinUseCase
+import org.example.udemykmp.features.trade.domain.usecase.SellCoinUseCase
 import org.koin.core.context.startKoin
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.singleOf
@@ -71,5 +72,6 @@ val sharedModule = module {
 
     //region Trade
     singleOf(::BuyCoinUseCase)
+    singleOf(::SellCoinUseCase)
     //endregion
 }
