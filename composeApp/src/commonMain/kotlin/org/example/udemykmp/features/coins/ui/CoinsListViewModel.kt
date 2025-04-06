@@ -8,12 +8,12 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import org.example.udemykmp.features.coins.domain.usecases.GetCoinPriceHistoryUseCase
-import org.example.udemykmp.features.coins.domain.usecases.GetCoinsListUseCase
 import org.example.udemykmp.core.domain.Result
 import org.example.udemykmp.core.util.formatFiat
 import org.example.udemykmp.core.util.formatPercentage
 import org.example.udemykmp.core.util.toUiText
+import org.example.udemykmp.features.coins.domain.usecases.GetCoinPriceHistoryUseCase
+import org.example.udemykmp.features.coins.domain.usecases.GetCoinsListUseCase
 
 class CoinsListViewModel(
     private val getCoinsListUseCase: GetCoinsListUseCase,

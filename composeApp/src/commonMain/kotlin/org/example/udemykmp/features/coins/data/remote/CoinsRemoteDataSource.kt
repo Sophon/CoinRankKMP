@@ -3,12 +3,12 @@ package org.example.udemykmp.features.coins.data.remote
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 import org.example.udemykmp.core.data.remote.BASE_URL
-import org.example.udemykmp.features.coins.data.remote.dto.CoinDetailsResponseDto
-import org.example.udemykmp.features.coins.data.remote.dto.CoinPriceHistoryResponseDto
-import org.example.udemykmp.features.coins.data.remote.dto.CoinsListResponseDto
 import org.example.udemykmp.core.domain.DataError
 import org.example.udemykmp.core.domain.Result
 import org.example.udemykmp.core.network.safeCall
+import org.example.udemykmp.features.coins.data.remote.dto.CoinDetailsResponseDto
+import org.example.udemykmp.features.coins.data.remote.dto.CoinPriceHistoryResponseDto
+import org.example.udemykmp.features.coins.data.remote.dto.CoinsListResponseDto
 
 interface CoinsRemoteDataSource {
     suspend fun getCoinsList(): Result<CoinsListResponseDto, DataError.Remote>

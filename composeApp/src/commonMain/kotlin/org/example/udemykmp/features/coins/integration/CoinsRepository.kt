@@ -2,7 +2,6 @@ package org.example.udemykmp.features.coins.integration
 
 import org.example.udemykmp.core.domain.DataError
 import org.example.udemykmp.core.domain.Result
-import org.example.udemykmp.features.coins.data.remote.dto.CoinsListResponseDto
 import org.example.udemykmp.features.coins.integration.model.CoinModel
 import org.example.udemykmp.features.coins.integration.model.CoinPriceHistory
 
