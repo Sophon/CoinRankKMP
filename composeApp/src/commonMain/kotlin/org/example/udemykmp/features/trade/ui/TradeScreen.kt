@@ -43,6 +43,8 @@ import udemykmp.composeapp.generated.resources.label_trade_sell
 
 @Composable
 fun TradeScreen(
+    coinId: String,
+    navigateToPortfolio: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val vm = koinViewModel<TradeViewModel>()
