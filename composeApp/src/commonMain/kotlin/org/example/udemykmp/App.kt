@@ -8,13 +8,12 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import org.example.udemykmp.core.navigation.Destination
-import org.example.udemykmp.core.navigation.TradeTypeNavType
+import org.example.udemykmp.core.navigation.encodeType
 import org.example.udemykmp.features.coins.ui.CoinsListScreen
 import org.example.udemykmp.features.portfolio.ui.PortfolioScreen
 import org.example.udemykmp.features.trade.ui.TradeScreen
 import org.example.udemykmp.theme.AppTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
-import kotlin.reflect.typeOf
 
 @Composable
 @Preview
@@ -30,7 +29,7 @@ fun App() {
             composable<Destination.Portfolio> {
                 PortfolioScreen(
                     onCoinClick = { coinId ->
-                        navHostController.navigate(Destination.Trade(coinId, Destination.Trade.Type.SELL))
+                        navHostController.navigate(Destination.Trade(coinId, encodeType(Destination.Trade.Type.SELL)))
                     },
                     onDiscoverClick = { navHostController.navigate(Destination.Coins) },
                 )
@@ -39,19 +38,15 @@ fun App() {
             composable<Destination.Coins> {
                 CoinsListScreen(
                     onCoinClick = { coinId ->
-                        navHostController.navigate(Destination.Trade(coinId, Destination.Trade.Type.BUY))
+                        navHostController.navigate(Destination.Trade(coinId, encodeType(Destination.Trade.Type.BUY)))
                     }
                 )
             }
 
-            composable<Destination.Trade>(
-                typeMap = mapOf(
-                    typeOf<Destination.Trade.Type>() to TradeTypeNavType()
-                )
-            ) { navBackstackEntry ->
+            composable<Destination.Trade> { navBackstackEntry ->
                 TradeScreen(
                     coinId = navBackstackEntry.toRoute<Destination.Trade>().coinId,
-                    tradeType = navBackstackEntry.toRoute<Destination.Trade>().tradeType,
+                    transactionType = navBackstackEntry.toRoute<Destination.Trade>().tradeType,
                     navigateToPortfolio = {
                         navHostController.navigate(Destination.Portfolio) {
                             popUpTo(Destination.Portfolio) { inclusive = true }
