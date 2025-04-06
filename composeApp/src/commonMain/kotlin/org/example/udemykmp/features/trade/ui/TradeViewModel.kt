@@ -21,14 +21,13 @@ import org.example.udemykmp.features.trade.domain.usecase.GetUserBalanceUseCase
 import org.example.udemykmp.features.trade.domain.usecase.SellCoinUseCase
 
 class TradeViewModel(
+    private val coinId: String,
     private val buyCoinUseCase: BuyCoinUseCase,
     private val sellCoinUseCase: SellCoinUseCase,
     private val getCoinDetailsUseCase: GetCoinDetailsUseCase,
     private val getUserBalanceUseCase: GetUserBalanceUseCase,
     private val getPortfolioCoinAmountUseCase: GetPortfolioCoinAmountUseCase,
 ): ViewModel() {
-
-    private val mockCoinId = "Qwsogvtv82FCd" //TODO: refactor once we implement nav args
     private val _typedAmount = MutableStateFlow("")
     private val _state = MutableStateFlow(TradeViewState())
     val state = initializeState()
@@ -42,7 +41,7 @@ class TradeViewModel(
 
         viewModelScope.launch {
             buyCoinUseCase.execute(
-                coinId = mockCoinId,
+                coinId = coinId,
                 amountToBuyInFiat = _typedAmount.value.toDouble()
             ).onSuccess {
                 //TODO: navigate
@@ -59,7 +58,7 @@ class TradeViewModel(
 
         viewModelScope.launch {
             sellCoinUseCase.execute(
-                coinId = mockCoinId,
+                coinId = coinId,
                 amountToSellInFiat = _typedAmount.value.toDouble()
             ).onSuccess {
                 //TODO: navigate
@@ -88,9 +87,9 @@ class TradeViewModel(
 
     private suspend fun loadPortfolio() {
         val balance = getUserBalanceUseCase.execute()
-        val portfolioCoinAmount = getPortfolioCoinAmountUseCase.execute(mockCoinId)
+        val portfolioCoinAmount = getPortfolioCoinAmountUseCase.execute(coinId)
 
-        getCoinDetailsUseCase.execute(mockCoinId)
+        getCoinDetailsUseCase.execute(coinId)
             .onSuccess { coinModel ->
                 _state.update {
                     it.copy(

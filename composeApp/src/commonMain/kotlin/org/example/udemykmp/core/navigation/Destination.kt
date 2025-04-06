@@ -11,5 +11,13 @@ sealed class Destination {
     object Portfolio
 
     @Serializable
-    object Trade
+    data class Trade(
+        val coinId: String,
+        val tradeType: Type,
+    ) {
+        enum class Type {
+            BUY,
+            SELL,
+        }
+    }
 }

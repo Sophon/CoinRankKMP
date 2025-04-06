@@ -6,6 +6,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import org.example.udemykmp.core.navigation.Destination
 import org.example.udemykmp.features.coins.ui.CoinsListScreen
 import org.example.udemykmp.features.portfolio.ui.PortfolioScreen
@@ -27,7 +28,7 @@ fun App() {
             composable<Destination.Portfolio> {
                 PortfolioScreen(
                     onCoinClick = { coinId ->
-                        navHostController.navigate(Destination.Trade)
+                        navHostController.navigate(Destination.Trade(coinId, Destination.Trade.Type.SELL))
                     },
                     onDiscoverClick = { navHostController.navigate(Destination.Coins) },
                 )
@@ -36,15 +37,15 @@ fun App() {
             composable<Destination.Coins> {
                 CoinsListScreen(
                     onCoinClick = { coinId ->
-                        navHostController.navigate(Destination.Trade)
+                        navHostController.navigate(Destination.Trade(coinId, Destination.Trade.Type.BUY))
                     }
                 )
             }
 
             composable<Destination.Trade> { navBackstackEntry ->
-                val mockCoinId = "Qwsogvtv82FCd"
                 TradeScreen(
-                    coinId = mockCoinId,
+                    coinId = navBackstackEntry.toRoute<Destination.Trade>().coinId,
+                    tradeType = navBackstackEntry.toRoute<Destination.Trade>().tradeType,
                     navigateToPortfolio = {
                         navHostController.navigate(Destination.Portfolio) {
                             popUpTo(Destination.Portfolio) { inclusive = true }
