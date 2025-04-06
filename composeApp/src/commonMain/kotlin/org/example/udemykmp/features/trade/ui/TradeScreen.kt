@@ -65,7 +65,8 @@ fun TradeScreen(
         lifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
             vm.events.collect { event ->
                 when (event) {
-                    is TradeEvent.PurchaseSuccess -> navigateToPortfolio()
+                    is TradeEvent.PurchaseSuccess,
+                    TradeEvent.SaleSuccess -> navigateToPortfolio()
                 }
             }
         }

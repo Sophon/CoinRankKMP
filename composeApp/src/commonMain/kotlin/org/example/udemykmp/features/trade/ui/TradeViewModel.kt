@@ -65,7 +65,7 @@ class TradeViewModel(
                 coinId = coinId,
                 amountToSellInFiat = _typedAmount.value.toDouble()
             ).onSuccess {
-                //TODO: navigate
+                _events.send(TradeEvent.SaleSuccess)
             }.onError { error ->
                 _state.update { it.copy(error = error.toUiText()) }
             }
