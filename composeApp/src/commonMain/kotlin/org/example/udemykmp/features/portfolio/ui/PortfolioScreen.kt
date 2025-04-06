@@ -188,9 +188,7 @@ private fun PortfolioCoinsList(
                     text = stringResource(Res.string.title_portfolio_owned),
                     color = MaterialTheme.colorScheme.onBackground,
                     fontSize = MaterialTheme.typography.titleLarge.fontSize,
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(16.dp)
+                    modifier = Modifier.padding(16.dp)
                 )
 
                 Spacer(Modifier.height(8.dp))
