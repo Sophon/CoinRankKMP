@@ -36,6 +36,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.repeatOnLifecycle
 import coil3.compose.AsyncImage
 import org.example.udemykmp.core.navigation.Destination
+import org.example.udemykmp.core.navigation.decodeType
 import org.example.udemykmp.features.trade.ui.components.CenteredAmountTextField
 import org.example.udemykmp.theme.localAppColorPalette
 import org.jetbrains.compose.resources.StringResource
@@ -51,7 +52,7 @@ import udemykmp.composeapp.generated.resources.label_trade_sell
 @Composable
 fun TradeScreen(
     coinId: String,
-    tradeType: Destination.Trade.Type,
+    transactionType: Int,
     navigateToPortfolio: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -60,6 +61,7 @@ fun TradeScreen(
     )
     val state by vm.state.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
+    val tradeType = decodeType(transactionType)
 
     //region Event handling
     LaunchedEffect(vm.events) {

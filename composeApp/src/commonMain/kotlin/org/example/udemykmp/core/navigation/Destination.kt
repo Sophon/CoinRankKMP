@@ -1,10 +1,7 @@
 package org.example.udemykmp.core.navigation
 
-import androidx.core.bundle.Bundle
-import androidx.navigation.NavType
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
+import org.example.udemykmp.core.navigation.Destination.Trade.Type
 
 @Serializable
 sealed class Destination {
@@ -17,7 +14,7 @@ sealed class Destination {
     @Serializable
     data class Trade(
         val coinId: String,
-        val tradeType: Type,
+        val tradeType: Int,
     ) {
         enum class Type {
             BUY,
@@ -26,23 +23,24 @@ sealed class Destination {
     }
 }
 
-class TradeTypeNavType : NavType<Destination.Trade.Type>(isNullableAllowed = false) {
-    //region Not needed for CMP, only for Android
-    override fun get(bundle: Bundle, key: String): Destination.Trade.Type? {
-        return bundle.getString(key)?.let { Json.decodeFromString(it) }
-    }
-
-    override fun put(bundle: Bundle, key: String, value: Destination.Trade.Type) {
-        return Json.encodeToString(value).let { bundle.putString(key, it) }
-    }
-    //endregion
-
-    override fun parseValue(value: String): Destination.Trade.Type {
-        return Json.decodeFromString(value)
-    }
-
-    //not required by defeult, must override to work properly
-    override fun serializeAsValue(value: Destination.Trade.Type): String {
-        return Json.encodeToString(value.toString())
+//region WORKAROUND
+/**
+ *
+ * CMP navigation doesn't support enum type arguments.
+ * Even if we implement a custom NavType, it will crash on iOS.
+ */
+fun encodeType(type: Type): Int {
+    return when (type) {
+        Type.BUY -> 1
+        Type.SELL -> -1
     }
 }
+
+fun decodeType(destination: Int): Type {
+    return when (destination) {
+        1 -> Type.BUY
+        -1 -> Type.SELL
+        else -> throw IllegalArgumentException("Invalid destination: $destination")
+    }
+}
+//endregion
