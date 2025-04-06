@@ -2,11 +2,13 @@ package org.example.udemykmp.features.trade.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -31,6 +33,8 @@ class TradeViewModel(
     private val _typedAmount = MutableStateFlow("")
     private val _state = MutableStateFlow(TradeViewState())
     val state = initializeState()
+    private val _events = Channel<TradeEvent>(capacity = Channel.BUFFERED)
+    val events = _events.receiveAsFlow()
 
     fun onAmountChange(amount: String) {
         _typedAmount.update { amount }
@@ -44,7 +48,7 @@ class TradeViewModel(
                 coinId = coinId,
                 amountToBuyInFiat = _typedAmount.value.toDouble()
             ).onSuccess {
-                //TODO: navigate
+                _events.send(TradeEvent.PurchaseSuccess)
             }.onError { error ->
                 _state.update { it.copy(error = error.toUiText()) }
             }
