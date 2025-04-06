@@ -17,7 +17,7 @@ sealed class Destination {
     @Serializable
     data class Trade(
         val coinId: String,
-        val tradeType: Type = Type.BUY,
+        val tradeType: Type,
     ) {
         enum class Type {
             BUY,
@@ -27,15 +27,22 @@ sealed class Destination {
 }
 
 class TradeTypeNavType : NavType<Destination.Trade.Type>(isNullableAllowed = false) {
+    //region Not needed for CMP, only for Android
     override fun get(bundle: Bundle, key: String): Destination.Trade.Type? {
         return bundle.getString(key)?.let { Json.decodeFromString(it) }
     }
+
+    override fun put(bundle: Bundle, key: String, value: Destination.Trade.Type) {
+        return Json.encodeToString(value).let { bundle.putString(key, it) }
+    }
+    //endregion
 
     override fun parseValue(value: String): Destination.Trade.Type {
         return Json.decodeFromString(value)
     }
 
-    override fun put(bundle: Bundle, key: String, value: Destination.Trade.Type) {
-        return Json.encodeToString(value).let { bundle.putString(key, it) }
+    //not required by defeult, must override to work properly
+    override fun serializeAsValue(value: Destination.Trade.Type): String {
+        return Json.encodeToString(value.toString())
     }
 }
