@@ -12,9 +12,9 @@ import org.example.udemykmp.core.domain.DataError
 import org.example.udemykmp.core.domain.Result
 import org.example.udemykmp.core.util.formatFiat
 import org.example.udemykmp.core.util.toUiText
-import org.example.udemykmp.features.portfolio.integration.model.PortfolioStatus
 import org.example.udemykmp.features.portfolio.domain.usecase.GetPortfolioStatusUseCase
 import org.example.udemykmp.features.portfolio.domain.usecase.InitializeBalanceUseCase
+import org.example.udemykmp.features.portfolio.integration.model.PortfolioStatus
 
 class PortfolioViewModel(
     private val getPortfolioStatusUseCase: GetPortfolioStatusUseCase,

@@ -11,8 +11,6 @@ data class TradeViewState(
     val coin: UiTradeCoinItem? = null,
     val currentCoinPrice: String = "0.0",
 
-    val tradeType: TradeType = TradeType.BUY,
-
     val isLoading: Boolean = true,
     val error: StringResource? = null,
 ) {
@@ -26,11 +24,6 @@ data class UiTradeCoinItem(
     val iconUrl: String,
     val price: Double,
 )
-
-enum class TradeType {
-    BUY,
-    SELL,
-}
 
 fun CoinModel.toUiModel(): UiTradeCoinItem {
     return UiTradeCoinItem(

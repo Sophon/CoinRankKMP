@@ -1,10 +1,10 @@
 package org.example.udemykmp.features.coins.data.mappers
 
+import org.example.udemykmp.core.domain.coin.Coin
 import org.example.udemykmp.features.coins.data.remote.dto.CoinItemDto
 import org.example.udemykmp.features.coins.data.remote.dto.CoinPriceDto
 import org.example.udemykmp.features.coins.integration.model.CoinModel
 import org.example.udemykmp.features.coins.integration.model.CoinPriceHistory
-import org.example.udemykmp.core.domain.coin.Coin
 
 fun CoinItemDto.toCoinModel() = CoinModel(
     coin = Coin(

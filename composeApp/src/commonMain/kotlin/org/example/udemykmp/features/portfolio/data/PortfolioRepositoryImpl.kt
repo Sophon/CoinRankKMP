@@ -13,8 +13,8 @@ import org.example.udemykmp.core.domain.onError
 import org.example.udemykmp.core.domain.onSuccess
 import org.example.udemykmp.features.coins.data.remote.CoinsRemoteDataSource
 import org.example.udemykmp.features.portfolio.data.local.PortfolioDao
-import org.example.udemykmp.features.portfolio.integration.model.PortfolioCoinModel
 import org.example.udemykmp.features.portfolio.integration.PortfolioRepository
+import org.example.udemykmp.features.portfolio.integration.model.PortfolioCoinModel
 
 class PortfolioRepositoryImpl(
     private val portfolioDao: PortfolioDao,

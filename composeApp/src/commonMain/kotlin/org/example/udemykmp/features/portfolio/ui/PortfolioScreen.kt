@@ -47,7 +47,6 @@ import udemykmp.composeapp.generated.resources.txt_portfolio_no_coins
 @Composable
 fun PortfolioScreen(
     onCoinClick: (String) -> Unit,
-    onBuyCoinClick: () -> Unit,
     onDiscoverClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -69,7 +68,6 @@ fun PortfolioScreen(
         PortfolioScreenContent(
             state = state,
             onCoinClick = onCoinClick,
-            onBuyCoinClick = onBuyCoinClick,
             onDiscoverClick = onDiscoverClick,
             modifier = modifier
         )
@@ -80,7 +78,6 @@ fun PortfolioScreen(
 private fun PortfolioScreenContent(
     state: PortfolioViewState,
     onCoinClick: (String) -> Unit,
-    onBuyCoinClick: () -> Unit,
     onDiscoverClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -94,7 +91,7 @@ private fun PortfolioScreenContent(
             portfolioValue = state.portfolioValue,
             cashBalance = state.cashBalance,
             isBuyButtonShown = state.isBuyButtonShown,
-            onBuyButtonClick = onBuyCoinClick,
+            onBuyButtonClick = onDiscoverClick,
         )
 
         PortfolioCoinsList(

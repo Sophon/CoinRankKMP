@@ -4,9 +4,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import org.example.udemykmp.core.domain.DataError
 import org.example.udemykmp.core.domain.Result
-import org.example.udemykmp.features.portfolio.integration.model.PortfolioStatus
 import org.example.udemykmp.features.portfolio.integration.BalanceRepository
 import org.example.udemykmp.features.portfolio.integration.PortfolioRepository
+import org.example.udemykmp.features.portfolio.integration.model.PortfolioStatus
 
 class GetPortfolioStatusUseCase(
     private val portfolioRepository: PortfolioRepository,

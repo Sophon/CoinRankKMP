@@ -21,6 +21,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,13 +29,18 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.repeatOnLifecycle
 import coil3.compose.AsyncImage
+import org.example.udemykmp.core.navigation.Destination
 import org.example.udemykmp.features.trade.ui.components.CenteredAmountTextField
 import org.example.udemykmp.theme.localAppColorPalette
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
+import org.koin.core.parameter.parametersOf
 import udemykmp.composeapp.generated.resources.Res
 import udemykmp.composeapp.generated.resources.btn_trade_buy
 import udemykmp.composeapp.generated.resources.btn_trade_sell
@@ -43,10 +49,29 @@ import udemykmp.composeapp.generated.resources.label_trade_sell
 
 @Composable
 fun TradeScreen(
+    coinId: String,
+    tradeType: Destination.Trade.Type,
+    navigateToPortfolio: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val vm = koinViewModel<TradeViewModel>()
+    val vm = koinViewModel<TradeViewModel>(
+        parameters = { parametersOf(coinId) }
+    )
     val state by vm.state.collectAsStateWithLifecycle()
+    val lifecycleOwner = LocalLifecycleOwner.current
+
+    //region Event handling
+    LaunchedEffect(vm.events) {
+        lifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+            vm.events.collect { event ->
+                when (event) {
+                    is TradeEvent.PurchaseSuccess,
+                    TradeEvent.SaleSuccess -> navigateToPortfolio()
+                }
+            }
+        }
+    }
+    //endregion
 
     Box(
         contentAlignment = Alignment.Center,
@@ -65,22 +90,22 @@ fun TradeScreen(
 
             Spacer(Modifier.height(24.dp))
             Amount(
-                tradeType = state.tradeType,
+                tradeType = tradeType,
                 amount = state.tradingAmount,
                 onAmountChange = vm::onAmountChange,
-                availableBalance = when (state.tradeType) {
-                    TradeType.BUY -> state.balance
-                    TradeType.SELL -> state.portfolioValue
+                availableBalance = when (tradeType) {
+                    Destination.Trade.Type.BUY -> state.balance
+                    Destination.Trade.Type.SELL -> state.portfolioValue
                 },
                 error = state.error,
             )
         }
 
         TradeButton(
-            tradeType = state.tradeType,
-            onButtonClick = when (state.tradeType) {
-                TradeType.BUY -> vm::onBuyClick
-                TradeType.SELL -> vm::onSellClick
+            tradeType = tradeType,
+            onButtonClick = when (tradeType) {
+                Destination.Trade.Type.BUY -> vm::onBuyClick
+                Destination.Trade.Type.SELL -> vm::onSellClick
             },
             isEnabled = state.isTradeButtonEnabled,
         )
@@ -133,7 +158,7 @@ private fun CoinInfo(
 
 @Composable
 private fun Amount(
-    tradeType: TradeType,
+    tradeType: Destination.Trade.Type,
     amount: String,
     onAmountChange: (String) -> Unit,
     availableBalance: String,
@@ -146,8 +171,8 @@ private fun Amount(
     ) {
         Text(
             text = when (tradeType) {
-                TradeType.BUY -> stringResource(Res.string.label_trade_buy)
-                TradeType.SELL -> stringResource(Res.string.label_trade_sell)
+                Destination.Trade.Type.BUY -> stringResource(Res.string.label_trade_buy)
+                Destination.Trade.Type.SELL -> stringResource(Res.string.label_trade_sell)
             },
             style = MaterialTheme.typography.labelMedium,
             color = MaterialTheme.colorScheme.onBackground,
@@ -179,7 +204,7 @@ private fun Amount(
 
 @Composable
 private fun BoxScope.TradeButton(
-    tradeType: TradeType,
+    tradeType: Destination.Trade.Type,
     onButtonClick: () -> Unit,
     isEnabled: Boolean,
     modifier: Modifier = Modifier,
@@ -188,8 +213,8 @@ private fun BoxScope.TradeButton(
         onClick = onButtonClick,
         colors = ButtonDefaults.buttonColors().copy(
             containerColor = when (tradeType) {
-                TradeType.BUY -> localAppColorPalette.current.profitGreen
-                TradeType.SELL -> localAppColorPalette.current.lossRed
+                Destination.Trade.Type.BUY -> localAppColorPalette.current.profitGreen
+                Destination.Trade.Type.SELL -> localAppColorPalette.current.lossRed
             }
         ),
         contentPadding = PaddingValues(horizontal = 64.dp),
@@ -201,11 +226,11 @@ private fun BoxScope.TradeButton(
         val text: StringResource
         val color: Color
         when (tradeType) {
-            TradeType.BUY -> {
+            Destination.Trade.Type.BUY -> {
                 text = Res.string.btn_trade_buy
                 color = MaterialTheme.colorScheme.onPrimary
             }
-            TradeType.SELL -> {
+            Destination.Trade.Type.SELL -> {
                 text = Res.string.btn_trade_sell
                 color = MaterialTheme.colorScheme.onBackground
             }
